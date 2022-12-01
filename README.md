@@ -68,3 +68,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### tips
+- page is still just a component
+- use <Link> (from 'react-router-dom') to keep as SPA
+- css modules. allow you to style components without the styling affecting any other components. <name>.module.css. In the <name>.js you import classes (any name) from './<name>.module.css'. Classes is now an object with keys being the css names so can use the object to style. Ex. <div class={classes.div1Styling}>...
+- state. what is currently going on as to know what to render. {useState} -> array of [currentState, func to change state]
+- lists of data to list of jsx elements. {DUMMY_DATA.map((meetup) => { return <li key={meetup.id}>{meetup.title </li> })}. React can render a list of elements. list items (even if custom comps) need a key prop (built in) (unique id) for effiency.
+ - props.children is the content passed between the opening and closing tags. Used to wrap comps in other comps
+ - submiting forms -> need to stop default behavior (look at NewMeetupForm)
+ - ref. connect directly to dom elements using {useRef} from 'react'. Can then say grab text from a form using onSubmit function.
+- send http req. can just use fetch(url, {method: 'POST'})
+- useHistory. expose browser history to move to new pages, change what the backbutton goes to. now its useNavigate. replace history.push('/path') with navigate('/path'). change history.replace('/path') with navigate('/path', { replace: true })
+- async calls / fetching data. React funcs have to be sync so use state to switch between loading and loaded. When loading return a spinning wheel or something and when loaded update with the data. In fetch promise in final .then() state the state of loading to false. on state change the comp is re-render so thats why you'll then see the data. useState can take an [] and then set that [] doesnt have to be t/f/.
+- useEffect. used when only want to do something conditionally. useEffect(() => {}, []). runs when value in [] changes. so if empty will run first time and then not again but theres nothing. if there was a bool whenever it flips it'll re-run
+- updating state if you depend on a previous version of the state. setState((prevState) => {
+                                                                                return prevState.concat(newState);
+                                                                            }) .  its a func rather than just setting the new value. This is because updating state is scheduled so you could miss a change in theory
+- context. If you need different components to be aware of some thing and be able to change something. ex favorites (header, fav page, meetup on meetups page). You wrap a useContext object around all the other components by doing useContext onj.provider {prop.children} .. Can wrap around whole app in index.js if need be.
